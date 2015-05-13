@@ -1,0 +1,34 @@
+---
+title: ಠ_ಠ Looks of Disapproval and more
+description: Looks of Disapproval, and other unicode faces and emojis. Plain text and copy pastable.
+---
+
+:ruby
+  if current_tag
+    content_for :title do
+      "#{looks.first["plain"]} Unicode #{current_tag.capitalize} Looks"
+    end
+  end
+
+.section.tags
+  %a.tag{href: "/", class: ("selected" if current_tag.nil?)}>< all
+  - tags.each do |tag|
+    %a.tag{href: "/#{tag}", class: ("selected" if current_tag && tag == current_tag)}><
+      = tag.sub(/-/, " ")
+
+.section.title
+  %h1.selectable= looks.first["plain"]
+
+.section.what-is-this
+  - if current_tag.nil?
+    The look of disapproval, is a plain text emoticon used to express disapproval.
+
+.section.look-collection
+  - looks.shuffle(random: Random.new(1)).each do |look|
+    %div.cell><
+      .title= look["title"].try(:capitalize)
+      .plain><
+        %div.selectable= look["plain"].gsub(/\n/, '<br/>')
+
+.section.pull-request
+  Add new looks by <a href="https://github.com/leighmcculloch/looks.wtf/blob/master/data/looks.yml">opening an issue or pull request</a>.
