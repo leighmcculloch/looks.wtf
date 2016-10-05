@@ -17,7 +17,7 @@ description: Looks of Disapproval, and other unicode faces and emojis. Plain tex
       = tag.sub(/-/, " ")
 
 .section.title
-  %h1.selectable= looks.first["plain"]
+  %h1.selectable{:data => {:clipboard_text => (looks.first["plain"])}}= looks.first["plain"]
 
 .section.what-is-this
   - if current_tag.nil?
@@ -28,7 +28,7 @@ description: Looks of Disapproval, and other unicode faces and emojis. Plain tex
     %div.cell><
       .title= look["title"].try(:capitalize)
       .plain><
-        %div.selectable= look["plain"].gsub(/\n/, '<br/>')
+        %div.selectable{:data => {:clipboard_text => (look["plain"])}}= look["plain"].gsub(/\n/, '<br/>')
 
 .section.pull-request
   Add new looks by <a href="https://github.com/leighmcculloch/looks.wtf/blob/master/data/looks.yml">opening an issue or pull request</a>.

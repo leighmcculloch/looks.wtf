@@ -18,3 +18,5 @@ $(function() {
     this.selectText();
   })
 });
+
+new Clipboard('.selectable');
