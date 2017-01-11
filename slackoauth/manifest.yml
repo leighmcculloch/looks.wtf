@@ -1,0 +1,10 @@
+---
+applications:
+  - name: slackoauth
+    buildpack: go_buildpack
+    memory: 16M
+    instances: 2
+    route: slack.looks.wtf/oauth
+    env:
+      GOPACKAGENAME: github.com/leighmcculloch/looks.wtf/slackoauth
+
