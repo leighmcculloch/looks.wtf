@@ -15,6 +15,7 @@ description: Looks of Disapproval, and other unicode faces and emojis. Plain tex
   - tags.each do |tag|
     %a.tag{href: "/#{tag}", class: ("selected" if current_tag && tag == current_tag)}><
       = tag.sub(/-/, " ")
+  <a class="slack" href="https://slack.com/oauth/authorize?scope=commands&client_id=125902939458.125224926177"><img alt="Add to Slack" valign="middle" height="26" width="90" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
 
 .section.title
   %h1.selectable{:data => {:clipboard_text => (looks.first["plain"])}}= looks.first["plain"]
@@ -33,7 +34,3 @@ description: Looks of Disapproval, and other unicode faces and emojis. Plain tex
 .section.pull-request
   Click on a look to copy it to your clipboard.<br/>
   Add new looks by <a href="https://github.com/leighmcculloch/looks.wtf/blob/master/data/looks.yml">opening an issue or pull request</a>.
-  </br>
-  </br>
-  <a href="https://slack.com/oauth/authorize?scope=commands&client_id=125902939458.125224926177"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
-  </br>
