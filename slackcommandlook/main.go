@@ -10,6 +10,8 @@ import (
 	"strings"
 )
 
+var slackVerificationToken = os.Getenv("SLACK_VERIFICATION_TOKEN")
+
 var tags = loadTags("tags.yml")
 var looksByTags = loadLooks("looks.yml")
 
@@ -20,6 +22,12 @@ type slackCommandResponse struct {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
+
+	token := r.FormValue("token")
+	if token != slackVerificationToken {
+		http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
+		return
+	}
 
 	teamDomain := r.FormValue("team_domain")
 	channelName := r.FormValue("channel_name")
