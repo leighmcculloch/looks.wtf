@@ -1,4 +1,4 @@
-package main
+package slackcommandlook
 
 import (
 	"encoding/json"
@@ -8,6 +8,10 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"golang.org/x/net/context"
+
+	_ "google.golang.org/appengine"
 )
 
 var slackVerificationToken = os.Getenv("SLACK_VERIFICATION_TOKEN")
@@ -20,13 +24,13 @@ type slackCommandResponse struct {
 	Text         string `json:"text"`
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func commandLookHandler(c context.Context, w http.ResponseWriter, r *http.Request) error {
 	defer r.Body.Close()
 
 	token := r.FormValue("token")
 	if token != slackVerificationToken {
 		http.Error(w, "401 Unauthorized", http.StatusUnauthorized)
-		return
+		return nil
 	}
 
 	teamDomain := r.FormValue("team_domain")
@@ -40,7 +44,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	looks := looksByTags[tag]
 	if len(looks) == 0 {
 		fmt.Fprintf(w, "Try using the /look command with one of these words: "+strings.Join(tags, ", "))
-		return
+		return nil
 	}
 
 	l := looks[rand.Intn(len(looks))]
@@ -51,12 +55,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		Text:         l.Plain,
 	}
 	enc := json.NewEncoder(w)
-	enc.Encode(response)
-}
-
-func main() {
-	http.HandleFunc("/", handler)
-
-	port := os.Getenv("PORT")
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	return enc.Encode(response)
 }

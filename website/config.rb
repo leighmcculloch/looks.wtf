@@ -9,7 +9,7 @@ set :looks, data.looks
 set :current_tag, nil
 
 tags.each do |tag|
-  proxy "/#{tag}.html", "/index.html", locals: {
+  proxy "/#{tag}", "/index.html", locals: {
     current_tag: tag,
     looks: looks.select { |look| look["tags"].include?(tag) }
   }

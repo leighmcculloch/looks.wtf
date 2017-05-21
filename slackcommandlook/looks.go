@@ -1,4 +1,4 @@
-package main
+package slackcommandlook
 
 import (
 	"io/ioutil"

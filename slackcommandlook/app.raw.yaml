@@ -1,0 +1,11 @@
+service: slackcommandlook
+runtime: go
+api_version: go1
+automatic_scaling:
+  max_idle_instances: 1
+  min_idle_instances: 0
+handlers:
+- url: /.*
+  script: _go_app
+env_variables:
+  SLACK_VERIFICATION_TOKEN: "$LOOKS_WTF_SLACK_VERIFICATION_TOKEN"
