@@ -35,7 +35,9 @@ func persistSlackOauth(c context.Context, so slackOauth) error {
 	return err
 }
 
-func oauthHandler(c context.Context, w http.ResponseWriter, r *http.Request) error {
+func oauthHandler(w http.ResponseWriter, r *http.Request) error {
+	c := r.Context()
+
 	code := r.URL.Query().Get("code")
 	log.Infof(c, "Request with code: %#v", code)
 

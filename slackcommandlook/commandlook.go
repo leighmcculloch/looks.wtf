@@ -1,7 +1,6 @@
 package slackcommandlook
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -23,7 +22,7 @@ type slackCommandResponse struct {
 	Text         string `json:"text"`
 }
 
-func commandLookHandler(c context.Context, w http.ResponseWriter, r *http.Request) error {
+func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
 	defer r.Body.Close()
 
 	token := r.FormValue("token")
