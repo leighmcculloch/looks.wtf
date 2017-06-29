@@ -1,6 +1,7 @@
 package slackoauth
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -8,8 +9,6 @@ import (
 	"net/url"
 	"os"
 	"time"
-
-	"golang.org/x/net/context"
 
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"

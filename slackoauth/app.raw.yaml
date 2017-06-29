@@ -1,6 +1,6 @@
 service: slackoauth
 runtime: go
-api_version: go1
+api_version: go1.8
 automatic_scaling:
   max_idle_instances: 1
   min_idle_instances: 0

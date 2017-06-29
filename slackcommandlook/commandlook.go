@@ -1,6 +1,7 @@
 package slackcommandlook
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -8,8 +9,6 @@ import (
 	"net/http"
 	"os"
 	"strings"
-
-	"golang.org/x/net/context"
 
 	_ "google.golang.org/appengine"
 )
