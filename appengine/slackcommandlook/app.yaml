@@ -7,5 +7,3 @@ automatic_scaling:
 handlers:
 - url: /.*
   script: _go_app
-env_variables:
-  SLACK_VERIFICATION_TOKEN: "$LOOKS_WTF_SLACK_VERIFICATION_TOKEN"

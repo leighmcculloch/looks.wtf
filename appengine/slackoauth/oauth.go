@@ -7,16 +7,13 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"time"
 
+	"github.com/leighmcculloch/looks.wtf/appengine/shared/secrets"
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/urlfetch"
 )
-
-var slackClientID = os.Getenv("SLACK_CLIENT_ID")
-var slackClientSecret = os.Getenv("SLACK_CLIENT_SECRET")
 
 type slackOauth struct {
 	Ok          bool   `json:"ok"`
@@ -35,11 +32,12 @@ func persistSlackOauth(c context.Context, so slackOauth) error {
 	return err
 }
 
-func oauthHandler(w http.ResponseWriter, r *http.Request) error {
-	c := r.Context()
-
+func oauthHandler(c context.Context, w http.ResponseWriter, r *http.Request) error {
 	code := r.URL.Query().Get("code")
 	log.Infof(c, "Request with code: %#v", code)
+
+	slackClientID := secrets.Get(c, "SLACK_CLIENT_ID")
+	slackClientSecret := secrets.Get(c, "SLACK_CLIENT_SECRET")
 
 	client := urlfetch.Client(c)
 	resp, err := client.PostForm(

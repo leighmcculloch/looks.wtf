@@ -1,18 +1,17 @@
 package slackcommandlook
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
-	"os"
 	"strings"
 
+	"github.com/leighmcculloch/looks.wtf/appengine/shared/secrets"
 	_ "google.golang.org/appengine"
 )
-
-var slackVerificationToken = os.Getenv("SLACK_VERIFICATION_TOKEN")
 
 var tags = loadTags("tags.yml")
 var looksByTags = loadLooks("looks.yml")
@@ -22,8 +21,10 @@ type slackCommandResponse struct {
 	Text         string `json:"text"`
 }
 
-func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
+func commandLookHandler(c context.Context, w http.ResponseWriter, r *http.Request) error {
 	defer r.Body.Close()
+
+	slackVerificationToken := secrets.Get(c, "SLACK_VERIFICATION_TOKEN")
 
 	token := r.FormValue("token")
 	if token != slackVerificationToken {
