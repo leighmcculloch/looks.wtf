@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/leighmcculloch/looks.wtf/appengine/shared/secrets"
+	"github.com/leighmcculloch/looks.wtf/shared/secrets"
 	_ "google.golang.org/appengine"
 )
 

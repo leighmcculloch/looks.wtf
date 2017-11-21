@@ -1,0 +1,21 @@
+service: default
+runtime: python27
+threadsafe: true
+handlers:
+- url: /
+  static_files: website/build/index.html
+  upload: website/build/index.html
+- url: /([^.]+)$
+  static_files: website/build/\1
+  upload: website/build/([^.]+)$
+  mime_type: text/html
+- url: /javascripts
+  static_dir: website/build/javascripts
+- url: /stylesheets
+  static_dir: website/build/stylesheets
+- url: /(.*\.png)$
+  static_files: website/build/\1
+  upload: website/build/.*\.png$
+- url: /(.*\.xml)$
+  static_files: website/build/\1
+  upload: website/build/.*\.xml$

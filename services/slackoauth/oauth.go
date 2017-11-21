@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/leighmcculloch/looks.wtf/appengine/shared/secrets"
+	"github.com/leighmcculloch/looks.wtf/shared/secrets"
 	"google.golang.org/appengine/datastore"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/urlfetch"
