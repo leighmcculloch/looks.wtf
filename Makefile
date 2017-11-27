@@ -1,9 +1,9 @@
 export CLOUDFLARE_ZONE = 663e42bb29abec71fd4fa45f82dfadd7
 
 ifeq ($(strip $(shell git status --porcelain)),)
-export VERSION = `git rev-parse --short HEAD`
+export VERSION = `git show -s --format=%cd --date=format:'%Y%m%dt%H%M%S' HEAD`-`git rev-parse --short HEAD`
 else
-export VERSION = dev-`date +%Y%m%dt%H%M%S`
+export VERSION = `date --utc +%Y%m%dt%H%M%S`-dev
 endif
 
 build:
