@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"github.com/leighmcculloch/looks.wtf/shared/secrets"
-	_ "google.golang.org/appengine"
 )
 
 var tags = loadTags("tags.yml")
