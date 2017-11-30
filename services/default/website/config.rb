@@ -21,6 +21,6 @@ configure :build do
   activate :minify_html
   activate :minify_css
   activate :minify_javascript
-  activate :asset_hash
+  activate :asset_hash, ignore: ["favicon-16x16.png", "favicon-32x32.png"]
   activate :relative_assets
 end
