@@ -6,7 +6,11 @@ else
 export VERSION = `date --utc +%Y%m%dt%H%M%S`-dev
 endif
 
-build:
+copy:
+	cp *.yml services/default/website/data/
+	cp *.yml services/slackcommandlook/
+
+build: copy
 	$(MAKE) -C services/default/website clean build
 
 run:
@@ -17,7 +21,7 @@ run:
 		services/slackoauth/app.yaml \
 		services/slackcommandlook/app.yaml
 
-push:
+push: copy
 	gcloud app deploy \
 		--project looks-wtf \
 		--version $(VERSION) \
