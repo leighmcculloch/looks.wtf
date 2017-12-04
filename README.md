@@ -1,4 +1,4 @@
-A collection of looks I've found and use in chatting.
+A collection of looks.
 
 (▰˘◡˘▰)
 
