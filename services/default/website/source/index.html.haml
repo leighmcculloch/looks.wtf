@@ -17,13 +17,6 @@ description: Looks of Disapproval, and other unicode faces and emojis. Plain tex
       = tag.sub(/-/, " ")
   <a class="slack" href="https://slack.com/oauth/authorize?scope=commands&client_id=125902939458.125224926177"><img alt="Add to Slack" valign="middle" height="26" width="90" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
 
-.section.title
-  %h1.selectable{:data => {:clipboard_text => (looks.first["plain"])}}= looks.first["plain"]
-
-.section.what-is-this
-  - if current_tag.nil?
-    The look of disapproval, is a plain text emoticon used to express disapproval.
-
 .section.look-collection
   - looks.shuffle(random: Random.new(1)).each do |look|
     %div.cell><
@@ -32,5 +25,6 @@ description: Looks of Disapproval, and other unicode faces and emojis. Plain tex
         %div.selectable{:data => {:clipboard_text => (look["plain"])}}= look["plain"].gsub(/\n/, '<br/>')
 
 .section.pull-request
+  <br/>
   Click on a look to copy it to your clipboard.<br/>
   Add new looks by <a href="https://github.com/leighmcculloch/looks.wtf/edit/master/looks.yml">opening a pull request</a> or an <a href="https://github.com/leighmcculloch/looks.wtf/issues/new">issue</a>.
