@@ -1,4 +1,4 @@
-service: slackcommandlook
+service: slackcommands
 runtime: go
 api_version: go1.8
 instance_class: F1

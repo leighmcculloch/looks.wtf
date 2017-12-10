@@ -8,7 +8,7 @@ endif
 
 copy:
 	cp *.yml services/default/website/data/
-	cp *.yml services/slackcommandlook/
+	cp *.yml services/slackcommands/
 
 build: copy
 	$(MAKE) -C services/default/website clean build
@@ -19,7 +19,7 @@ run:
 		services/dispatch.yaml \
 		services/default/app.yaml \
 		services/slackoauth/app.yaml \
-		services/slackcommandlook/app.yaml
+		services/slackcommands/app.yaml
 
 push: copy
 	gcloud app deploy \
@@ -29,7 +29,7 @@ push: copy
 		services/dispatch.yaml \
 		services/default/app.yaml \
 		services/slackoauth/app.yaml \
-		services/slackcommandlook/app.yaml
+		services/slackcommands/app.yaml
 
 cdn:
 	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \

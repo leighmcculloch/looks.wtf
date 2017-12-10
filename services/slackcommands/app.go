@@ -1,4 +1,4 @@
-package slackcommandlook
+package slackcommands
 
 import (
 	"net/http"
