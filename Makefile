@@ -1,5 +1,7 @@
 export CLOUDFLARE_ZONE = 663e42bb29abec71fd4fa45f82dfadd7
 
+PORT ?= 8080
+
 ifeq ($(strip $(shell git status --porcelain)),)
 export VERSION = `git show -s --format=%cd --date=format:'%Y%m%dt%H%M%S' HEAD`-`git rev-parse --short HEAD`
 else
@@ -15,11 +17,13 @@ build: copy
 
 run:
 	dev_appserver.py \
+		--port=$(PORT) \
 		--default_gcs_bucket_name looks-wtf.appspot.com \
 		services/dispatch.yaml \
 		services/default/app.yaml \
 		services/slackoauth/app.yaml \
-		services/slackcommands/app.yaml
+		services/slackcommands/app.yaml \
+		services/slackactions/app.yaml
 
 push: copy
 	gcloud app deploy \
@@ -29,7 +33,8 @@ push: copy
 		services/dispatch.yaml \
 		services/default/app.yaml \
 		services/slackoauth/app.yaml \
-		services/slackcommands/app.yaml
+		services/slackcommands/app.yaml \
+		services/slackactions/app.yaml
 
 cdn:
 	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/$(CLOUDFLARE_ZONE)/purge_cache" \

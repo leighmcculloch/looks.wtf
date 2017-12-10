@@ -3,5 +3,9 @@ dispatch:
   service: slackoauth
 - url: "*/command/look"
   service: slackcommands
+- url: "*/command/looks"
+  service: slackcommands
+- url: "*/action"
+  service: slackactions
 - url: "*/.*"
   service: default

@@ -14,11 +14,6 @@ import (
 var tags = loadTags("tags.yml")
 var looksByTags = loadLooks("looks.yml")
 
-type slackCommandResponse struct {
-	ResponseType string `json:"response_type"`
-	Text         string `json:"text"`
-}
-
 func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
 	c := r.Context()
 	defer r.Body.Close()
