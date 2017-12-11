@@ -1,4 +1,4 @@
-package slackcommands
+package slackcommandlook
 
 import (
 	"net/http"
@@ -20,5 +20,4 @@ func (a appHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 func init() {
 	http.Handle("/command/look", appHandler(commandLookHandler))
-	http.Handle("/command/looks", appHandler(commandLooksHandler))
 }

@@ -1,4 +1,4 @@
-package slackcommands
+package slackcommandlooks
 
 type slackCommandResponse struct {
 	ResponseType string                           `json:"response_type"`

@@ -19,7 +19,8 @@ run:
 		services/dispatch.yaml \
 		services/default/app.yaml \
 		services/slackoauth/app.yaml \
-		services/slackcommands/app.yaml \
+		services/slackcommandlook/app.yaml \
+		services/slackcommandlooks/app.yaml \
 		services/slackactions/app.yaml
 
 push: build
@@ -30,7 +31,8 @@ push: build
 		services/dispatch.yaml \
 		services/default/app.yaml \
 		services/slackoauth/app.yaml \
-		services/slackcommands/app.yaml \
+		services/slackcommandlook/app.yaml \
+		services/slackcommandlooks/app.yaml \
 		services/slackactions/app.yaml
 
 cdn:

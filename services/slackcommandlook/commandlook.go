@@ -1,4 +1,4 @@
-package slackcommands
+package slackcommandlook
 
 import (
 	"encoding/json"
