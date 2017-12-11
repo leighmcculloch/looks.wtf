@@ -8,11 +8,8 @@ else
 export VERSION = `date --utc +%Y%m%dt%H%M%S`-dev
 endif
 
-copy:
-	cp *.yml services/default/website/data/
-	cp *.yml services/slackcommands/
-
-build: copy
+build:
+	embedfiles -out=shared/looks/yaml_files.go -pkg=looks looks.yml tags.yml
 	$(MAKE) -C services/default/website clean build
 
 run:
@@ -25,7 +22,7 @@ run:
 		services/slackcommands/app.yaml \
 		services/slackactions/app.yaml
 
-push: copy
+push: build
 	gcloud app deploy \
 		--project looks-wtf \
 		--version $(VERSION) \

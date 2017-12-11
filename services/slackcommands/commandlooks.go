@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/leighmcculloch/looks.wtf/shared/looks"
 	"github.com/leighmcculloch/looks.wtf/shared/secrets"
 	"google.golang.org/appengine/log"
 )
@@ -32,22 +33,22 @@ func commandLooksHandler(w http.ResponseWriter, r *http.Request) error {
 
 	log.Infof(c, "Request: TeamDomain: %s ChannelName: %s UserName: %s Command: %s Text: %s", teamDomain, channelName, userName, command, tag)
 
-	looks := looksByTags[tag]
-	if len(looks) == 0 {
-		fmt.Fprintf(w, "Try using the /look command with one of these words: "+strings.Join(tags, ", "))
+	looksWithTag := looks.LooksWithTag(tag)
+	if len(looksWithTag) == 0 {
+		fmt.Fprintf(w, "Try using the /look command with one of these words: "+strings.Join(looks.Tags(), ", "))
 		return nil
 	}
 
 	maxLooks := 5
-	if maxLooks > len(looks) {
-		maxLooks = len(looks)
+	if maxLooks > len(looksWithTag) {
+		maxLooks = len(looksWithTag)
 	}
 
 	actions := []slackCommandResponseAttachmentAction{}
 	for i := 0; i < maxLooks; i++ {
-		lookIdx := rand.Intn(len(looks))
+		lookIdx := rand.Intn(len(looksWithTag))
 
-		l := looks[lookIdx]
+		l := looksWithTag[lookIdx]
 		actions = append(
 			actions,
 			slackCommandResponseAttachmentAction{
@@ -58,7 +59,7 @@ func commandLooksHandler(w http.ResponseWriter, r *http.Request) error {
 			},
 		)
 
-		looks = append(looks[:lookIdx], looks[lookIdx+1:]...)
+		looksWithTag = append(looksWithTag[:lookIdx], looksWithTag[lookIdx+1:]...)
 	}
 
 	w.Header().Add("Content-Type", "application/json")

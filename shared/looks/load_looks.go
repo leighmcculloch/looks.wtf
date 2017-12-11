@@ -1,30 +1,25 @@
-package slackcommands
+package looks
 
 import (
-	"io/ioutil"
 	"log"
 	"strings"
 
 	yaml "gopkg.in/yaml.v2"
 )
 
-type look struct {
+type Look struct {
 	Plain string `yaml:"plain"`
 	Tags  string `yaml:"tags"`
 }
 
-func loadLooks(file string) map[string][]look {
-	looksYaml, err := ioutil.ReadFile(file)
-	if err != nil {
-		log.Fatal("Error loading looks yaml:", err)
-	}
-	var looks []look
-	err = yaml.Unmarshal(looksYaml, &looks)
+func loadLooks(looksYaml []byte) map[string][]Look {
+	var looks []Look
+	err := yaml.Unmarshal(looksYaml, &looks)
 	if err != nil {
 		log.Fatal("Error unmarshaling looks yaml:", err)
 	}
 
-	var looksByTags = make(map[string][]look)
+	var looksByTags = make(map[string][]Look)
 	for _, l := range looks {
 		tags := strings.Split(l.Tags, " ")
 		for _, t := range tags {
@@ -33,7 +28,7 @@ func loadLooks(file string) map[string][]look {
 			}
 			looksByTag, ok := looksByTags[t]
 			if !ok {
-				looksByTag = []look{}
+				looksByTag = []Look{}
 			}
 			looksByTags[t] = append(looksByTag, l)
 		}

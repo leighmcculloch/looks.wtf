@@ -8,11 +8,9 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/leighmcculloch/looks.wtf/shared/looks"
 	"github.com/leighmcculloch/looks.wtf/shared/secrets"
 )
-
-var tags = loadTags("tags.yml")
-var looksByTags = loadLooks("looks.yml")
 
 func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
 	c := r.Context()
@@ -34,13 +32,13 @@ func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
 
 	log.Printf("Request: TeamDomain: %s ChannelName: %s UserName: %s Command: %s Text: %s", teamDomain, channelName, userName, command, tag)
 
-	looks := looksByTags[tag]
-	if len(looks) == 0 {
-		fmt.Fprintf(w, "Try using the /look command with one of these words: "+strings.Join(tags, ", "))
+	looksWithTag := looks.LooksWithTag(tag)
+	if len(looksWithTag) == 0 {
+		fmt.Fprintf(w, "Try using the /look command with one of these words: "+strings.Join(looks.Tags(), ", "))
 		return nil
 	}
 
-	l := looks[rand.Intn(len(looks))]
+	l := looksWithTag[rand.Intn(len(looksWithTag))]
 
 	w.Header().Add("Content-Type", "application/json")
 	response := slackCommandResponse{
