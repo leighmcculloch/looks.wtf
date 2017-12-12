@@ -1,9 +1,10 @@
 package slackcommands
 
 type slackActionPayload struct {
-	Actions    []slackActionPayloadAction `json:"actions"`
-	Team       slackActionPayloadTeam     `json:"team"`
-	CallbackID string                     `json:"callback_id"`
+	Actions     []slackActionPayloadAction `json:"actions"`
+	Team        slackActionPayloadTeam     `json:"team"`
+	CallbackID  string                     `json:"callback_id"`
+	ResponseURL string                     `json:"response_url"`
 }
 
 type slackActionPayloadTeam struct {
@@ -17,7 +18,6 @@ type slackActionPayloadAction struct {
 }
 
 type slackCommandResponse struct {
-	ResponseType    string `json:"response_type"`
-	ReplaceOriginal bool   `json:"replace_original"`
-	Text            string `json:"text"`
+	ResponseType string `json:"response_type"`
+	Text         string `json:"text"`
 }
