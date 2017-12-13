@@ -18,6 +18,7 @@ type slackActionPayloadAction struct {
 }
 
 type slackCommandResponse struct {
-	ResponseType string `json:"response_type"`
-	Text         string `json:"text"`
+	ResponseType   string `json:"response_type"`
+	DeleteOriginal bool   `json:"delete_original"`
+	Text           string `json:"text"`
 }
