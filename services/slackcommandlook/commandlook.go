@@ -28,12 +28,12 @@ func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
 
 	teamDomain := r.FormValue("team_domain")
 	channelName := r.FormValue("channel_name")
-	userName := r.FormValue("user_name")
+	userID := r.FormValue("user_id")
 	command := r.FormValue("command")
 	tag := r.FormValue("text")
 	responseURL := r.FormValue("response_url")
 
-	log.Infof(c, "Request: TeamDomain: %s ChannelName: %s UserName: %s Command: %s Text: %s", teamDomain, channelName, userName, command, tag)
+	log.Infof(c, "Request: TeamDomain: %s ChannelName: %s UserID: %s Command: %s Text: %s", teamDomain, channelName, userID, command, tag)
 
 	looksWithTag := looks.LooksWithTag(tag)
 	if len(looksWithTag) == 0 {
@@ -48,7 +48,7 @@ func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
 	err := json.NewEncoder(&body).Encode(
 		slackCommandResponse{
 			ResponseType: "in_channel",
-			Text:         l.Plain,
+			Text:         fmt.Sprintf("<@%s>: %s", userID, l.Plain),
 		},
 	)
 	if err != nil {

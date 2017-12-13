@@ -2,6 +2,7 @@ package slackcommands
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"google.golang.org/appengine/log"
@@ -27,7 +28,7 @@ func actionHandler(w http.ResponseWriter, r *http.Request) error {
 		slackCommandResponse{
 			ResponseType:   "in_channel",
 			DeleteOriginal: true,
-			Text:           action.Value,
+			Text:           fmt.Sprintf("<@%s>: %s", payload.User.ID, action.Value),
 		},
 	)
 
