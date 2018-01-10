@@ -43,3 +43,6 @@ cdn:
 		--data '{"purge_everything":true}'
 
 deploy: build push cdn
+
+setup:
+	go get 4d63.com/embedfiles
