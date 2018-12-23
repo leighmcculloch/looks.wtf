@@ -1,7 +1,8 @@
-service: default
-runtime: python27
-threadsafe: true
+runtime: go111
+instance_class: F1
 handlers:
+- url: /(oauth|action|command/look|command/looks)
+  script: auto
 - url: /
   static_files: website/build/index.html
   upload: website/build/index.html

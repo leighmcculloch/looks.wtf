@@ -1,15 +1,15 @@
-package slackcommandlooks
+package main
 
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strings"
 
-	"github.com/leighmcculloch/looks.wtf/shared/looks"
-	"github.com/leighmcculloch/looks.wtf/shared/secrets"
-	"google.golang.org/appengine/log"
+	"github.com/leighmcculloch/looks.wtf/service/shared/looks"
+	"github.com/leighmcculloch/looks.wtf/service/shared/secrets"
 )
 
 func commandLooksHandler(w http.ResponseWriter, r *http.Request) error {
@@ -17,7 +17,7 @@ func commandLooksHandler(w http.ResponseWriter, r *http.Request) error {
 	defer r.Body.Close()
 
 	slackVerificationToken := secrets.Get(c, "SLACK_VERIFICATION_TOKEN")
-	log.Infof(c, slackVerificationToken)
+	log.Printf(slackVerificationToken)
 
 	token := r.FormValue("token")
 	if token != slackVerificationToken {
@@ -31,7 +31,7 @@ func commandLooksHandler(w http.ResponseWriter, r *http.Request) error {
 	command := r.FormValue("command")
 	tag := r.FormValue("text")
 
-	log.Infof(c, "Request: TeamDomain: %s ChannelName: %s UserName: %s Command: %s Text: %s", teamDomain, channelName, userName, command, tag)
+	log.Printf("Request: TeamDomain: %s ChannelName: %s UserName: %s Command: %s Text: %s", teamDomain, channelName, userName, command, tag)
 
 	looksWithTag := looks.LooksWithTag(tag)
 	if len(looksWithTag) == 0 {

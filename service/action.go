@@ -1,15 +1,13 @@
-package slackcommands
+package main
 
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
-
-	"google.golang.org/appengine/log"
 )
 
 func actionHandler(w http.ResponseWriter, r *http.Request) error {
-	c := r.Context()
 	defer r.Body.Close()
 
 	payloadJSON := r.FormValue("payload")
@@ -21,7 +19,7 @@ func actionHandler(w http.ResponseWriter, r *http.Request) error {
 
 	action := payload.Actions[0]
 
-	log.Infof(c, "Request: TeamDomain: %s Action: %s Name: %s Value: %s", payload.Team.Domain, payload.CallbackID, action.Name, action.Value)
+	log.Printf("Request: TeamDomain: %s Action: %s Name: %s Value: %s", payload.Team.Domain, payload.CallbackID, action.Name, action.Value)
 
 	w.Header().Add("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(

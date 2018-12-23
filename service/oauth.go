@@ -1,18 +1,17 @@
-package slackoauth
+package main
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"time"
 
-	"github.com/leighmcculloch/looks.wtf/shared/secrets"
-	"google.golang.org/appengine/datastore"
-	"google.golang.org/appengine/log"
-	"google.golang.org/appengine/urlfetch"
+	"cloud.google.com/go/datastore"
+	"github.com/leighmcculloch/looks.wtf/service/shared/secrets"
 )
 
 type slackOauth struct {
@@ -27,20 +26,24 @@ type slackOauth struct {
 
 func persistSlackOauth(c context.Context, so slackOauth) error {
 	so.Timestamp = time.Now().UTC()
-	key := datastore.NewIncompleteKey(c, "slackOauth", nil)
-	_, err := datastore.Put(c, key, &so)
+	client, err := datastore.NewClient(c, "looks-wtf")
+	if err != nil {
+		return err
+	}
+	key := datastore.IncompleteKey("slackOauth", nil)
+	_, err = client.Put(c, key, &so)
 	return err
 }
 
 func oauthHandler(w http.ResponseWriter, r *http.Request) error {
 	c := r.Context()
 	code := r.URL.Query().Get("code")
-	log.Infof(c, "Request with code: %#v", code)
+	log.Printf("Request with code: %#v", code)
 
 	slackClientID := secrets.Get(c, "SLACK_CLIENT_ID")
 	slackClientSecret := secrets.Get(c, "SLACK_CLIENT_SECRET")
 
-	client := urlfetch.Client(c)
+	client := http.DefaultClient
 	resp, err := client.PostForm(
 		"https://slack.com/api/oauth.access",
 		url.Values{
@@ -62,15 +65,15 @@ func oauthHandler(w http.ResponseWriter, r *http.Request) error {
 	var msg slackOauth
 	err = json.Unmarshal(body, &msg)
 	if err != nil || !msg.Ok {
-		log.Errorf(c, "Error in response: %#v", string(body))
+		log.Printf("Error in response: %#v", string(body))
 		return err
 	}
 
-	log.Infof(c, "Success, response: %#v", msg)
+	log.Printf("Success, response: %#v", msg)
 	fmt.Fprintf(w, "The looks.wtf Slack App has been successfully added!\nGive it a go with the `/look awe` command in Slack.")
 	err = persistSlackOauth(c, msg)
 	if err != nil {
-		log.Infof(c, "Failed to persist: %#v", msg)
+		log.Printf("Failed to persist: %#v", msg)
 		return err
 	}
 	return nil

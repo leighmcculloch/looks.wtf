@@ -1,17 +1,16 @@
-package slackcommandlook
+package main
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
 	"strings"
 
-	"github.com/leighmcculloch/looks.wtf/shared/looks"
-	"github.com/leighmcculloch/looks.wtf/shared/secrets"
-	"google.golang.org/appengine/log"
-	"google.golang.org/appengine/urlfetch"
+	"github.com/leighmcculloch/looks.wtf/service/shared/looks"
+	"github.com/leighmcculloch/looks.wtf/service/shared/secrets"
 )
 
 func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
@@ -33,7 +32,7 @@ func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
 	tag := r.FormValue("text")
 	responseURL := r.FormValue("response_url")
 
-	log.Infof(c, "Request: TeamDomain: %s ChannelName: %s UserID: %s Command: %s Text: %s", teamDomain, channelName, userID, command, tag)
+	log.Printf("Request: TeamDomain: %s ChannelName: %s UserID: %s Command: %s Text: %s", teamDomain, channelName, userID, command, tag)
 
 	looksWithTag := looks.LooksWithTag(tag)
 	if len(looksWithTag) == 0 {
@@ -43,7 +42,7 @@ func commandLookHandler(w http.ResponseWriter, r *http.Request) error {
 
 	l := looksWithTag[rand.Intn(len(looksWithTag))]
 
-	client := urlfetch.Client(c)
+	client := http.DefaultClient
 	body := bytes.Buffer{}
 	err := json.NewEncoder(&body).Encode(
 		slackCommandResponse{
