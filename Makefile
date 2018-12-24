@@ -8,7 +8,6 @@ deploy:
 build:
 	cp *.yml website/data/
 	cp *.yml service/data/
-	embedfiles -out=service/shared/looks/yaml_files.go -pkg=looks looks.yml tags.yml
 	$(MAKE) -C website clean build
 
 cdn:
@@ -17,6 +16,3 @@ cdn:
 		-H "X-Auth-Key: $(CLOUDFLARE_CLIENT_API_KEY)" \
 		-H "Content-Type: application/json" \
 		--data '{"purge_everything":true}'
-
-setup:
-	go get 4d63.com/embedfiles

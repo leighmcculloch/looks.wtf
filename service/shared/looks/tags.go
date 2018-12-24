@@ -1,14 +1,16 @@
 package looks
 
 import (
+	"io"
 	"log"
 
 	yaml "gopkg.in/yaml.v2"
 )
 
-func loadTags(tagsYaml []byte) []string {
+func ParseTags(r io.Reader) []string {
 	var tags []string
-	err := yaml.Unmarshal(tagsYaml, &tags)
+	dec := yaml.NewDecoder(r)
+	err := dec.Decode(&tags)
 	if err != nil {
 		log.Fatal("Error unmarshaling tags yaml:", err)
 	}

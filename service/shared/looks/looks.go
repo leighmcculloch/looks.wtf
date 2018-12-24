@@ -1,26 +1,39 @@
 package looks
 
-var tags = func() []string {
-	tagsYaml := files["tags.yml"]
-	if len(tagsYaml) == 0 {
-		panic("tags.yml file missing")
-	}
+import (
+	"io"
+	"log"
+	"strings"
 
-	return loadTags(tagsYaml)
-}()
+	yaml "gopkg.in/yaml.v2"
+)
 
-var looksByTags = func() map[string][]Look {
-	looksYaml := files["looks.yml"]
-	if len(looksYaml) == 0 {
-		panic("looks.yml file missing")
-	}
-	return loadLooks(looksYaml)
-}()
-
-func Tags() []string {
-	return tags
+type Look struct {
+	Plain string `yaml:"plain"`
+	Tags  string `yaml:"tags"`
 }
 
-func LooksWithTag(tag string) []Look {
-	return looksByTags[tag]
+func ParseLooks(r io.Reader) map[string][]Look {
+	var looks []Look
+	dec := yaml.NewDecoder(r)
+	err := dec.Decode(&looks)
+	if err != nil {
+		log.Fatal("Error unmarshaling looks yaml:", err)
+	}
+
+	var looksByTags = make(map[string][]Look)
+	for _, l := range looks {
+		tags := strings.Split(l.Tags, " ")
+		for _, t := range tags {
+			if t == "" {
+				continue
+			}
+			looksByTag, ok := looksByTags[t]
+			if !ok {
+				looksByTag = []Look{}
+			}
+			looksByTags[t] = append(looksByTag, l)
+		}
+	}
+	return looksByTags
 }
