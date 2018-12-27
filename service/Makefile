@@ -6,6 +6,9 @@ else
 export VERSION = `date --utc +%Y%m%dt%H%M%S`-dev
 endif
 
+clean:
+	rm -fR static
+
 datastore:
 	gcloud beta emulators datastore start
 

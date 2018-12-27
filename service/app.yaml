@@ -4,19 +4,19 @@ handlers:
 - url: /(oauth|action|command/look|command/looks)
   script: auto
 - url: /
-  static_files: website/build/index.html
-  upload: website/build/index.html
+  static_files: static/index.html
+  upload: static/index.html
 - url: /([^.]+)$
-  static_files: website/build/\1
-  upload: website/build/([^.]+)$
+  static_files: static/\1
+  upload: static/([^.]+)$
   mime_type: text/html
 - url: /javascripts
-  static_dir: website/build/javascripts
+  static_dir: static/javascripts
 - url: /stylesheets
-  static_dir: website/build/stylesheets
+  static_dir: static/stylesheets
 - url: /(.*\.png)$
-  static_files: website/build/\1
-  upload: website/build/.*\.png$
+  static_files: static/\1
+  upload: static/.*\.png$
 - url: /(.*\.xml)$
-  static_files: website/build/\1
-  upload: website/build/.*\.xml$
+  static_files: static/\1
+  upload: static/.*\.xml$
