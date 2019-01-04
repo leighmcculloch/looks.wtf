@@ -1,9 +1,11 @@
 PORT ?= 8080
 
+ifeq ($(VERSION),"")
 ifeq ($(strip $(shell git status --porcelain)),)
 export VERSION = `git show -s --format=%cd --date=format:'%Y%m%dt%H%M%S' HEAD`-`git rev-parse --short HEAD`
 else
 export VERSION = `date --utc +%Y%m%dt%H%M%S`-dev
+endif
 endif
 
 clean:

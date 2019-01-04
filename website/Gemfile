@@ -3,3 +3,4 @@ gem "middleman"
 gem "middleman-minify-html"
 gem "builder"
 gem "activesupport", :require => %w(active_support/core_ext/object)
+gem "therubyracer" # provides a javascript environment for execjs, a dependency of middleman
