@@ -1,5 +1,5 @@
 steps:
-- name: 'ruby'
+- name: 'ruby:2.6.0'
   args: ['make', 'build']
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy', '--project=looks-wtf', '--version=$SHORT_SHA', 'service/app.yaml']
