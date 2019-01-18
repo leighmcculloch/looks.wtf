@@ -1,4 +1,4 @@
-package main
+package service
 
 import (
 	"io"
@@ -34,18 +34,15 @@ var dataTags = looks.ParseTags(func() io.Reader {
 	return f
 }())
 
-func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-	addr := ":" + port
+var mux = func() http.Handler {
+	mux := http.NewServeMux()
+	mux.Handle("/oauth", appHandler(oauthHandler))
+	mux.Handle("/command/look", appHandler(commandLookHandler(dataLooks, dataTags)))
+	mux.Handle("/command/looks", appHandler(commandLooksHandler(dataLooks, dataTags)))
+	mux.Handle("/action", appHandler(actionHandler))
+	return mux
+}()
 
-	http.Handle("/oauth", appHandler(oauthHandler))
-	http.Handle("/command/look", appHandler(commandLookHandler(dataLooks, dataTags)))
-	http.Handle("/command/looks", appHandler(commandLooksHandler(dataLooks, dataTags)))
-	http.Handle("/action", appHandler(actionHandler))
-
-	log.Printf("Listening on %s", addr)
-	log.Fatal(http.ListenAndServe(addr, nil))
+func Handler(w http.ResponseWriter, r *http.Request) {
+	mux.ServeHTTP(w, r)
 }
