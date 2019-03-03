@@ -26,4 +26,4 @@ deploy:
 		--project looks-wtf \
 		--version $(VERSION) \
 		--promote \
-		app.yaml
+		main/app.yaml
