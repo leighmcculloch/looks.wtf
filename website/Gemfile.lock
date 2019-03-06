@@ -41,6 +41,7 @@ GEM
     i18n (0.7.0)
     json (1.8.6)
     kramdown (1.17.0)
+    libv8 (3.16.14.19)
     listen (2.10.1)
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
@@ -90,6 +91,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    ref (2.0.0)
     sass (3.4.25)
     sprockets (2.12.5)
       hike (~> 1.2)
@@ -102,6 +104,9 @@ GEM
       sprockets (~> 2.0)
       tilt (~> 1.1)
     temple (0.8.0)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (1.4.1)
@@ -122,6 +127,7 @@ DEPENDENCIES
   builder
   middleman
   middleman-minify-html
+  therubyracer
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
