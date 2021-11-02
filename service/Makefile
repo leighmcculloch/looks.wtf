@@ -1,29 +1,7 @@
 PORT ?= 8080
 
-ifeq ($(VERSION),"")
-ifeq ($(strip $(shell git status --porcelain)),)
-export VERSION = `git show -s --format=%cd --date=format:'%Y%m%dt%H%M%S' HEAD`-`git rev-parse --short HEAD`
-else
-export VERSION = `date --utc +%Y%m%dt%H%M%S`-dev
-endif
-endif
-
 clean:
-	rm -fR static
-
-datastore:
-	gcloud beta emulators datastore start
+	rm -fR static/*
 
 run:
-	$$(gcloud beta emulators datastore env-init) && \
-		cd scripts && \
-		go run local_setup.go && \
-		cd .. && \
-		go run .
-
-deploy:
-	gcloud app deploy \
-		--project looks-wtf \
-		--version $(VERSION) \
-		--promote \
-		main/app.yaml
+	go run .

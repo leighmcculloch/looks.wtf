@@ -1,4 +1,4 @@
-package service
+package main
 
 type slackCommandResponse struct {
 	ResponseType   string                           `json:"response_type"`

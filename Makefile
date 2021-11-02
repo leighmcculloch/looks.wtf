@@ -1,13 +1,12 @@
-deploy:
-	$(MAKE) build
-	$(MAKE) -C service deploy
-
 clean:
 	$(MAKE) -C website clean
 	$(MAKE) -C service clean
 
 build: clean
-	cp *.yml website/data/
-	cp *.yml service/data/
-	$(MAKE) -C website build
-	cp -r website/build service/static
+	docker build -t lookswtf .
+
+run: build
+	docker run -it -p 8080:8080 lookswtf
+
+deploy:
+	fly deploy --local-only --strategy bluegreen

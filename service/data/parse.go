@@ -1,4 +1,4 @@
-package looks
+package data
 
 import (
 	"io"
@@ -21,7 +21,7 @@ func ParseLooks(r io.Reader) map[string][]Look {
 		log.Fatal("Error unmarshaling looks yaml:", err)
 	}
 
-	var looksByTags = make(map[string][]Look)
+	looksByTags := make(map[string][]Look)
 	for _, l := range looks {
 		tags := strings.Split(l.Tags, " ")
 		for _, t := range tags {
@@ -36,4 +36,14 @@ func ParseLooks(r io.Reader) map[string][]Look {
 		}
 	}
 	return looksByTags
+}
+
+func ParseTags(r io.Reader) []string {
+	var tags []string
+	dec := yaml.NewDecoder(r)
+	err := dec.Decode(&tags)
+	if err != nil {
+		log.Fatal("Error unmarshaling tags yaml:", err)
+	}
+	return tags
 }

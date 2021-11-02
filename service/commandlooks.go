@@ -1,4 +1,4 @@
-package service
+package main
 
 import (
 	"encoding/json"
@@ -8,11 +8,11 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/leighmcculloch/looks.wtf/service/shared/looks"
+	"github.com/leighmcculloch/looks.wtf/service/data"
 	"github.com/leighmcculloch/looks.wtf/service/shared/secrets"
 )
 
-func commandLooksHandler(dataLooks map[string][]looks.Look, dataTags []string) func(w http.ResponseWriter, r *http.Request) error {
+func commandLooksHandler(dataLooks map[string][]data.Look, dataTags []string) func(w http.ResponseWriter, r *http.Request) error {
 	return func(w http.ResponseWriter, r *http.Request) error {
 		c := r.Context()
 		defer r.Body.Close()

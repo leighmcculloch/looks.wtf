@@ -1,7 +1,6 @@
-package service
+package main
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -10,7 +9,6 @@ import (
 	"net/url"
 	"time"
 
-	"cloud.google.com/go/datastore"
 	"github.com/leighmcculloch/looks.wtf/service/shared/secrets"
 )
 
@@ -22,17 +20,6 @@ type slackOauth struct {
 	TeamName    string `json:"team_name"`
 	TeamID      string `json:"team_id"`
 	Timestamp   time.Time
-}
-
-func persistSlackOauth(c context.Context, so slackOauth) error {
-	so.Timestamp = time.Now().UTC()
-	client, err := datastore.NewClient(c, "looks-wtf")
-	if err != nil {
-		return err
-	}
-	key := datastore.IncompleteKey("slackOauth", nil)
-	_, err = client.Put(c, key, &so)
-	return err
 }
 
 func oauthHandler(w http.ResponseWriter, r *http.Request) error {
@@ -71,10 +58,5 @@ func oauthHandler(w http.ResponseWriter, r *http.Request) error {
 
 	log.Printf("Success, response: %#v", msg)
 	fmt.Fprintf(w, "The looks.wtf Slack App has been successfully added!\nGive it a go with the `/look awe` command in Slack.")
-	err = persistSlackOauth(c, msg)
-	if err != nil {
-		log.Printf("Failed to persist: %#v", msg)
-		return err
-	}
 	return nil
 }
