@@ -1,0 +1,122 @@
+$width-m: 920px;
+$width-s: 620px;
+$width-xs: 320px;
+
+body {
+	margin:2em;
+  font-family:sans-serif;
+  background-color:#fff;
+  color:#222;
+  line-height:1.3em;
+}
+
+.page {
+	margin:auto;
+}
+
+.content {
+	margin:0 auto;
+	text-align:center;
+}
+
+a {
+	color:#00f;
+	text-decoration:none;
+}
+
+a:hover {
+	text-decoration:underline;
+}
+
+.section.title {
+  margin:6em 0 3em 0;
+  @media (max-width: $width-m) {
+    margin:4em 0 2em 0;
+  }
+  @media (max-width: $width-s) {
+    margin:2.5em 0 1.25em 0;
+  }
+  @media (max-width: $width-xs) {
+    margin:1em 0 0.5em 0;
+  }
+  h1 {
+    display:inline;
+    font-family:"Kannada Sangam MN", "Kannada MN", Arial, Helvetica, sans-serif;
+    font-weight:900;
+    font-size:6.5em;
+    @media (max-width: $width-m) {
+      font-size:4em;
+    }
+    @media (max-width: $width-s) {
+      font-size:2.5em;
+    }
+    @media (max-width: $width-xs) {
+      font-size:1em;
+    }
+  }
+}
+
+.section.what-is-this {
+  max-width:480px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.section.tags {
+  margin-top:0.55em;
+  a.tag {
+    display:inline-block;
+    padding:3px 5px;
+    margin:2px;
+    background-color:#eee;
+    border-radius:5px;
+    color:#222;
+    font-size:0.8em;
+    &.selected, &:hover {
+      background-color:#222;
+      color:#fff;
+      text-decoration:none;
+    }
+  }
+  a.slack {
+    margin:2px;
+  }
+}
+
+.section.look-collection {
+  margin-left:auto;
+  margin-right:auto;
+  max-width:900px;
+  .cell {
+    display:inline-block;
+    width:180px;
+    margin:1.55em 0;
+    vertical-align:bottom;
+    .title {
+      font-size:0.5em;
+      height:2em;
+    }
+    .plain {
+      div {
+        font-family:"Kannada Sangam MN", "Kannada MN", Arial, Helvetica, sans-serif;
+        border:none;
+        outline:none;
+        text-align:center;
+        width:100%;
+        font-size:1.2em;
+        margin-top:1em;
+        height:1em;
+        resize:none;
+      }
+    }
+  }
+}
+
+.section.pull-request {
+  font-size:0.8em;
+  color:#ccc;
+  a {
+    color:#ccc;
+    text-decoration: underline;
+  }
+}

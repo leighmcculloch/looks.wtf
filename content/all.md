@@ -1,0 +1,4 @@
++++
+tag = "all"
+slug = "index"
++++

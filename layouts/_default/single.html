@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    {{- if eq .Params.tag "all" -}}
+    ಠ_ಠ Looks of Disapproval and more
+    {{- else -}}
+    {{- range $.Site.Data.looks -}}
+      {{- if strings.Contains .tags $.Params.tag -}}
+        {{- .plain }}
+        {{- break -}}
+      {{- end -}}
+    {{- end }} Unicode {{ strings.FirstUpper .Params.tag }} Looks
+    {{- end -}}
+  </title>
+  <meta name="description" content="Looks of Disapproval, and other unicode faces and emojis. Plain text and copy pastable." />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimum-scale=1,maximum-scale=1" />
+
+  {{ $style := resources.Match "css/*" | resources.Concat "css/_.css" | resources.ToCSS | resources.Minify | resources.Fingerprint }}
+  <link type="text/css" rel="stylesheet" href="{{ $style.Permalink }}">
+
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+
+  {{ $js := resources.Match "js/*" | resources.Concat "js/_.js" | resources.Minify | resources.Fingerprint }}
+  <script src="{{ $js.Permalink }}" async="true"></script>
+</head>
+
+<body class="page">
+  <div class="content">
+  <div class="section tags">
+    {{- range sort $.Site.Pages "Params.tag" -}}
+      <a href="{{ .RelPermalink }}" class="tag {{ if eq $.Params.tag .Params.tag }}selected{{ end }}">{{ replace .Params.tag "-" " " }}</a>
+    {{- end -}}
+    <a class="slack" href="https://slack.com/oauth/authorize?scope=commands&client_id=125902939458.125224926177"><img alt="Add to Slack" valign="middle" height="26" width="90" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+  </div>
+
+  <div class="section look-collection">
+    {{- range shuffle $.Site.Data.looks -}}
+      {{- if strings.Contains .tags $.Params.tag -}}
+        <div class="cell">
+          <div class="title">{{ .title | strings.FirstUpper }}</div>
+          <div class="plain">
+            <div class="selectable" data-clipboard-text="{{ .plain }}">{{ replace .plain "\n" "<br/>" | safeHTML }}</div>
+          </div>
+        </div>
+      {{- end -}}
+    {{- end -}}
+  </div>
+
+  <div class="section pull-request">
+    <br/>
+    Click on a look to copy it to your clipboard.<br/>
+    Add new looks by <a href="https://github.com/leighmcculloch/looks.wtf/edit/master/looks.yml">opening a pull request</a> or an <a href="https://github.com/leighmcculloch/looks.wtf/issues/new">issue</a>.
+ </div> </div>
+
+</body>
+
+</html>
