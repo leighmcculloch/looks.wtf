@@ -8,10 +8,10 @@ export async function onRequest(context) {
   var looksSelected = [];
   for (const look of looks) {
     if (look.tags.includes(tag)) {
-      looksWeighted.push(look);
+      looksSelected.push(look);
     }
   }
-  if (looksWeighted.length == 0) {
+  if (looksSelected.length == 0) {
     return new Response(`404 Not Found`, { status: 404 });
   }
 
