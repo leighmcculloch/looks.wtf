@@ -19,6 +19,7 @@ export async function onRequest(context) {
   const looksSelected = looksWeighted.map((lookWeighted) => lookWeighted.look);
 
   const response = {
+    tag,
     looks: looksSelected.map((look) => { return { plain: look.plain }; }),
   };
 
