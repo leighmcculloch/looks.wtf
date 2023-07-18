@@ -17,10 +17,13 @@ export async function onRequest(context) {
 
   const response = {
     tag,
-    looks: looksSelected.map((look) => { return {
-      plain: look.plain,
-      title: look.title || undefined,
-    }; }),
+    looks: looksSelected.map((look) => {
+      return {
+        plain: look.plain,
+        title: look.title || undefined,
+        tags: look.tags.split(/ +/),
+      };
+    }),
   };
 
   return new Response(JSON.stringify(response, null, 2), {
