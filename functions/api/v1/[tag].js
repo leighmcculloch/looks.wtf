@@ -17,7 +17,10 @@ export async function onRequest(context) {
 
   const response = {
     tag,
-    looks: looksSelected.map((look) => { return { plain: look.plain }; }),
+    looks: looksSelected.map((look) => { return {
+      plain: look.plain,
+      title: look.title || undefined,
+    }; }),
   };
 
   return new Response(JSON.stringify(response, null, 2), {
