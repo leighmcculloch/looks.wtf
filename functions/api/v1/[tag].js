@@ -1,8 +1,6 @@
 import looks from '../../../data/looks.json';
 
 export async function onRequest(context) {
-  const form = await context.request.formData();
-
   const tag = context.params.tag;
 
   console.log(`Request: Tag: ${tag}`);
