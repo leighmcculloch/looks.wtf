@@ -16,12 +16,15 @@ export async function onRequest(context) {
     return new Response(`404 Not Found`, { status: 404 });
   }
   looksWeighted.sort((a, b) => a.weight - b.weight);
-
   const looksSelected = looksWeighted.map((lookWeighted) => lookWeighted.look);
 
   const response = {
-    looks: looksSelected.map((look) => { plain: look.plain }),
+    looks: looksSelected.map((look) => { return { plain: look.plain }; }),
   };
 
-  return new Response(JSON.stringify(response));
+  return new Response(JSON.stringify(response, null, 2), {
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
+  });
 }
