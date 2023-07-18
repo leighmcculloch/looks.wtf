@@ -5,18 +5,15 @@ export async function onRequest(context) {
 
   console.log(`Request: Tag: ${tag}`);
 
-  var looksWeighted = [];
+  var looksSelected = [];
   for (const look of looks) {
     if (look.tags.includes(tag)) {
-      const weight = Math.random();
-      looksWeighted.push({ look, weight });
+      looksWeighted.push(look);
     }
   }
   if (looksWeighted.length == 0) {
     return new Response(`404 Not Found`, { status: 404 });
   }
-  looksWeighted.sort((a, b) => a.weight - b.weight);
-  const looksSelected = looksWeighted.map((lookWeighted) => lookWeighted.look);
 
   const response = {
     tag,
