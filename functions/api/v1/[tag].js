@@ -1,4 +1,4 @@
-import looks from '../../data/looks';
+import looks from '../../../data/looks.json';
 
 export async function onRequest(context) {
   const form = await context.request.formData();
