@@ -27,9 +27,6 @@
 
   {{ $js := resources.Match "js/*" | resources.Concat "js/_.js" | resources.Minify | resources.Fingerprint }}
   <script src="{{ $js.Permalink }}" async="true"></script>
-  {{ range .AlternativeOutputFormats -}}
-    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
-{{ end -}}
 </head>
 
 <body class="page">
