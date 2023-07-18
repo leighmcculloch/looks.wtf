@@ -6,13 +6,13 @@ export async function onRequest(context) {
   const payload = JSON.parse(payloadJson);
 
   const teamDomain = payload.team.domain;
-	const action = payload.callback_id;
+  const action = payload.callback_id;
   const user_id = payload.user.id;
-	const name = payload.actions[0].name;
-	const value = payload.actions[0].value;
+  const name = payload.actions[0].name;
+  const value = payload.actions[0].value;
   const response_url = payload.response_url;
 
-	console.log(`Request: TeamDomain: ${teamDomain} Action: ${action} Name: ${name} Value: ${value}`);
+  console.log(`Request: TeamDomain: ${teamDomain} Action: ${action} Name: ${name} Value: ${value}`);
 
   const message = {
     response_type: 'in_channel',
