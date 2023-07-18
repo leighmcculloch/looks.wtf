@@ -1,0 +1,10 @@
+{
+{{- range shuffle $.Site.Data.looks -}}
+{{- if strings.Contains .tags $.Params.tag}}
+  {
+    "title": "{{ .title | strings.FirstUpper }}",
+    "plain": "{{ .plain }}"
+  },
+{{- end -}}
+{{- end}}
+}

@@ -27,13 +27,18 @@
 
   {{ $js := resources.Match "js/*" | resources.Concat "js/_.js" | resources.Minify | resources.Fingerprint }}
   <script src="{{ $js.Permalink }}" async="true"></script>
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{ end -}}
 </head>
 
 <body class="page">
   <div class="content">
   <div class="section tags">
     {{- range sort $.Site.Pages "Params.tag" -}}
+      {{- if ne .Params.exclude_from_menu true -}}
       <a href="{{ .RelPermalink }}" class="tag {{ if eq $.Params.tag .Params.tag }}selected{{ end }}">{{ replace .Params.tag "-" " " }}</a>
+      {{- end -}}
     {{- end -}}
     <a class="slack" href="https://slack.com/oauth/authorize?scope=commands&client_id=125902939458.125224926177"><img alt="Add to Slack" valign="middle" height="26" width="90" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
   </div>

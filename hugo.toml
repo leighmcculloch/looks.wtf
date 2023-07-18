@@ -6,3 +6,15 @@ disableKinds = [
     "taxonomy",
     "taxonomyTerm",
 ]
+uglyURLs = true
+
+[outputs]
+page = ["html", "json"]
+
+[outputFormats.html]
+noUgly = true
+
+[outputFormats.json]
+mediatype = "application/json"
+path = "api/v1"
+noUgly = false
