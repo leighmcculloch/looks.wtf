@@ -10,12 +10,12 @@ export async function onRequest(context) {
 
   const teamDomain = form.get("team_domain");
 	const channelName = form.get("channel_name");
-	const userName = form.get("user_name");
+	const userId = form.get("user_id");
 	const command = form.get("command");
 	const tag = form.get("text");
 	const response_url = form.get("response_url");
 
-	console.log(`Request: TeamDomain: ${teamDomain} ChannelName: ${channelName} UserName: ${userName} Command: ${command} Text: ${tag}`);
+	console.log(`Request: TeamDomain: ${teamDomain} ChannelName: ${channelName} UserID: ${userId} Command: ${command} Text: ${tag}`);
 
   var looksWeighted = [];
   for (const look of looks) {
