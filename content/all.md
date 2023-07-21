@@ -1,4 +1,0 @@
-+++
-tag = "all"
-slug = "index"
-+++

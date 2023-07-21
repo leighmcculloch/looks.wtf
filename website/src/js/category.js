@@ -1,4 +1,6 @@
-HTMLElement.prototype.selectText = function() {
+import Clipboard from "./_clipboard.js";
+
+function selectText(element) {
   if (window.getSelection) {
     if (window.getSelection().empty) {  // Chrome
       window.getSelection().empty();
@@ -8,15 +10,17 @@ HTMLElement.prototype.selectText = function() {
   } else if (document.selection) {  // IE?
     document.selection.empty();
   }
-  var range = document.createRange();
-  range.selectNode(this);
+  const range = document.createRange();
+  range.selectNode(element);
   window.getSelection().addRange(range);
 }
 
-$(function() {
-  $('.selectable').mouseover(function() {
-    this.selectText();
-  })
-});
+document
+  .querySelectorAll(".selectable")
+  .forEach((element) => {
+    element.addEventListener("mouseover", () => {
+      selectText(element);
+    }, false)
+  });
 
 new Clipboard('.selectable');

@@ -1,8 +1,0 @@
-# baseURL = 'https://looks.wtf/'
-baseURL = 'https://looks-wtf.pages.dev/'
-languageCode = 'en-us'
-relativeURLs = true
-disableKinds = [
-    "taxonomy",
-    "taxonomyTerm",
-]

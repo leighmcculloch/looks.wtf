@@ -1,15 +1,13 @@
-HUGO?=go run -tags extended github.com/gohugoio/hugo@v0.115.2
-
 dev: clean
-	kill $$(lsof -t -i :9000) $$(lsof -t -i :8788) || true
-	$(HUGO) server --port 9000 &
-	wrangler pages dev --proxy 9000 \
+	kill $$(lsof -t -i :3000) $$(lsof -t -i :8788) || true
+	cd website && deno task serve &
+	wrangler pages dev --proxy 3000 \
 		-e SLACK_CLIENT_ID=a \
 		-e SLACK_CLIENT_SECRET=b \
 		-e SLACK_VERIFICATION_TOKEN=c
 
 build: clean
-	$(HUGO)
+	cd website && deno task build
 
 clean:
-	rm -fr public
+	rm -fr website/_site

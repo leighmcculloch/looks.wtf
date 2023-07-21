@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>ಠ_ಠ Looks of Disapproval and more</title>
+  <meta name="description" content="Looks of Disapproval, and other unicode faces and emojis. Plain text and copy pastable." />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimum-scale=1,maximum-scale=1" />
+
+  <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+</head>
+
+<body class="page">
+
+  <div class="content">
+
+  <div class="section tags">
+    {{- for t of tags -}}
+      <a href="{{ t |> tagurl }}" class="tag">{{ t.replace('-', ' ') }}</a>
+    {{- /for -}}
+    <a class="slack" href="https://slack.com/oauth/authorize?scope=commands&client_id=125902939458.125224926177"><img alt="Add to Slack" valign="middle" height="26" width="90" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x" /></a>
+  </div>
+
+  <div class="section message">
+    {{ content }}
+  </div>
+
+</body>
+
+</html>
