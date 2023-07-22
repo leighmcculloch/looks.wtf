@@ -17,7 +17,7 @@ site.data("tags", tags);
 site.data("looks", looks);
 
 site.filter("upperfirst", (s) => s && s[0].toUpperCase() + s.slice(1));
-site.filter("titlecase", (s) => s && s.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()));
+site.filter("titlecase", (s) => s && s.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()));
 site.filter("tagurl", (t) => t == 'all' ? '/' : `/${t}/`);
 
 site.copy('static', '');
