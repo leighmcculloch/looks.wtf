@@ -10,8 +10,8 @@ site.use(vento());
 site.use(sass());
 site.use(esbuild());
 
-import tags from "../data/tags.json" assert { type: "json" };
-import looks from "../data/looks.json" assert { type: "json" };
+import tags from "../data/tags.json" with { type: "json" };
+import looks from "../data/looks.json" with { type: "json" };
 
 site.data("tags", tags);
 site.data("looks", looks);
